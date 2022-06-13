@@ -1,0 +1,11 @@
+* {
+    margin: 0;
+}
+
+::placeholder {
+    text-align: center;
+}
+
+main {
+    height: 100vh;
+}

@@ -1,18 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <!-- bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css" integrity="sha512-YzwGgFdO1NQw1CZkPoGyRkEnUTxPSbGWXvGiXrWk8IeSqdyci0dEDYdLLjMxq1zCoU0QBa4kHAFiRhUL3z2bow==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- icon -->
+    <link rel="icon" href="images\weather-news.png" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"
+    ></script>
+    <!-- css -->
+    <link rel="stylesheet" href="style.css" />
     <title>Feely Weather App</title>
-</head>
-<body>
-    
-<h1>Hello World</h1>
-
-
-
+  </head>
+  <body>
+    <header>
+      <h1 class="text-center text-light bg-dark m-0">Feely Weather App</h1>
+    </header>
+    <main>
+      <div class="container-fluid w-100 h-100 bg-dark text-center">
+        <div class="row mb-2 pt-2">
+          <div class="col-12 ">
+            <div class="search d-flex flex-column justify-content-center align-items-center mb-3">
+             <input class="form-control form-control-sm w-25" id="text-area" rows="1" placeholder="Search A City"></input>
+             <button class="btn btn-lg text-center text-dark bg-light mt-2">Search</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card text-light bg-success  d-flex justify-content-center align-items-center">
+                <i class="bi-arrow-bar-up card-img-top w-25" aria-hidden="true"></i>
+              <div class="card-header">Your card</div>
+              <div class="card-body">Your body</div>
+              <div class="card-footer">Your footer</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-light bg-success  d-flex justify-content-center align-items-center">
+              <i class="bi-arrow-bar-up card-img-top w-25" aria-hidden="true"></i>
+              <div class="card-header">Your card</div>
+              <div class="card-body">Your body</div>
+              <div class="card-footer">Your footer</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-light bg-success  d-flex justify-content-center align-items-center">
+              <i class="bi-arrow-bar-up card-img-top w-25" aria-hidden="true"></i>
+              <div class="card-header">Your card</div>
+              <div class="card-body">Your body</div>
+              <div class="card-footer">Your footer</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-light bg-success  d-flex justify-content-center align-items-center">
+              <i class="bi-arrow-bar-up card-img-top w-25" aria-hidden="true"></i>
+              <div class="card-header">Your card</div>
+              <div class="card-body">Your body</div>
+              <div class="card-footer">Your footer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer></footer>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
