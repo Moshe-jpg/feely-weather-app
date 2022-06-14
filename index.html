@@ -19,55 +19,25 @@
   </head>
   <body>
     <header>
-      <h1 class="text-center text-light bg-dark m-0">Feely Weather App</h1>
+      <h1 class="text-center text-light bg-dark m-0 pb-5 pt-5">Feely Weather App</h1>
     </header>
     <main>
-      <div class="container-fluid w-100 h-100 bg-dark text-center">
+      <div class="container-fluid w-100 h-100 bg-dark text-center main-container">
         <div class="row mb-2 pt-2">
-          <div class="col-12 ">
+          <div class="col-12">
             <div class="search d-flex flex-column justify-content-center align-items-center mb-3">
-             <input class="form-control form-control-sm w-25" id="text-area" rows="1" placeholder="Search A City"></input>
-             <button class="btn btn-lg text-center text-dark bg-light mt-2">Search</button>
+             <input class="form-control form-control-sm w-25 bg-info text-light" id="text-input" rows="1" placeholder="Search A City"></input>
+             <button class="btn btn-lg text-center text-light bg-success mt-3" id="search-btn">Search</button>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-3">
-            <div class="card text-light bg-success  d-flex justify-content-center align-items-center">
-                <i class="bi-arrow-bar-up card-img-top w-25" aria-hidden="true"></i>
-              <div class="card-header">Your card</div>
-              <div class="card-body">Your body</div>
-              <div class="card-footer">Your footer</div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-light bg-success  d-flex justify-content-center align-items-center">
-              <i class="bi-arrow-bar-up card-img-top w-25" aria-hidden="true"></i>
-              <div class="card-header">Your card</div>
-              <div class="card-body">Your body</div>
-              <div class="card-footer">Your footer</div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-light bg-success  d-flex justify-content-center align-items-center">
-              <i class="bi-arrow-bar-up card-img-top w-25" aria-hidden="true"></i>
-              <div class="card-header">Your card</div>
-              <div class="card-body">Your body</div>
-              <div class="card-footer">Your footer</div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-light bg-success  d-flex justify-content-center align-items-center">
-              <i class="bi-arrow-bar-up card-img-top w-25" aria-hidden="true"></i>
-              <div class="card-header">Your card</div>
-              <div class="card-body">Your body</div>
-              <div class="card-footer">Your footer</div>
-            </div>
-          </div>
-        </div>
+        <div class="row" id="row">
+        
       </div>
     </main>
     <footer></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

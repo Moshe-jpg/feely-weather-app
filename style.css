@@ -4,8 +4,19 @@
 
 ::placeholder {
     text-align: center;
+    font-size: larger;
 }
 
 main {
     height: 100vh;
+    letter-spacing: 0.05em;
 }
+
+div {
+    line-height: 1.5;
+}
+
+.col-12 {
+    margin-bottom: 15px;
+}
+
