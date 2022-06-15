@@ -12,6 +12,17 @@
     background-color: #ffffff;
 }
 
+.nav-h1 {
+    background-color: #ffffff;
+    background-image: linear-gradient(red, black);
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+
+}
+
 main {
     height: 100vh;
     letter-spacing: 0.05em;
