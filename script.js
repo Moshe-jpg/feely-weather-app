@@ -48,18 +48,22 @@ var saveSearch = function (){
 
 // create a forecast whenever the button is clicked
 var createForecast = function (data, event){
+
     // create the column
     var forecastBody = document.createElement("div");
     forecastBody.setAttribute("class", "col-md-4 col-12");
+
     // create the card
     var forecastCard = document.createElement("div");
     forecastCard.setAttribute( "class", "card text-light bg-info d-flex align-items-center card-box");
+
     // create the header
     var forecastHead = document.createElement("div");
     forecastHead.setAttribute("class", "card-header text-dark bg-warning w-100 font-weight-bold");
     
     // put the current date inside the text
     var currentDate = moment.unix(data.current.dt).format('dddd, MMMM Do, YYYY | h:mm A');
+
     // get the icons
     var iconUrl = `https://openweathermap.org/img/w/${data.current.weather[0].icon}.png`;
     var iconDescription = data.current.weather[0].description;
@@ -71,12 +75,14 @@ var createForecast = function (data, event){
     weatherIcon.setAttribute("class", "weather-img");
     weatherIcon.setAttribute("src", iconUrl);
     weatherIcon.setAttribute("alt", iconDescription);
+
     // create the main content area
     var forecastMain = document.createElement("div");
     forecastMain.setAttribute("class", "card-body w-100 font-weight-bold");
     
     // create the footer area
     var forecastFooter = document.createElement("div");
+
     // give the footer a special colour depending on UV index favourability
     if (data.current.uvi <= 3){
         forecastFooter.style.color = "#ffffff";
@@ -98,8 +104,10 @@ var createForecast = function (data, event){
     forecastCard.append(forecastHead);
     forecastCard.append(forecastMain);
     forecastCard.append(forecastFooter);
+
     // append the card to the column
     forecastBody.appendChild(forecastCard);
+
     // append the column to the row
     row.appendChild(forecastBody);
 
@@ -109,11 +117,17 @@ var createForecast = function (data, event){
 };
 
 var createFutureForecast = function (data){
-    
+    // create the column
     var futureForecastBody = document.createElement("div");
     futureForecastBody.setAttribute("class", "col-md-8 col-12");
+
+    // create the card
     var futureForecastCard = document.createElement("div");
     futureForecastCard.setAttribute("class", "card text-light bg-info d-flex align-items-center card-box");
+
+    // create the header
+    var futureForecastHeader = document.createElement("h5");
+    futureForecastHeader.setAttribute("class", "card-header text-info bg-light font-weight-bold");
 
     // the new p tags will container the future conditions in each one
     var cardText1 = document.createElement("p");
@@ -134,13 +148,17 @@ var createFutureForecast = function (data){
     var day4 = moment.unix(data.current.dt).add(4, 'days').format('dddd, Do');
     var day5 = moment.unix(data.current.dt).add(5, 'days').format('dddd, Do');
 
-    // the text content for each card
+    // text content for card header
+    futureForecastHeader.textContent = "5 Day Forecast";
+
+    // text content for each card
     cardText1.textContent = "Date: " + day1 + " | Temp: " + data.daily[0].temp.day + "F | Humidity: " + data.daily[0].humidity + "% | UV Index: " + data.daily[0].uvi + " | Wind Speed: " + data.daily[0].wind_speed + " MPH";
     cardText2.textContent = "Date: " + day2 + " | Temp: " + data.daily[1].temp.day + "F | Humidity: " + data.daily[1].humidity + "% | UV Index: " + data.daily[1].uvi + " | Wind Speed: " + data.daily[1].wind_speed + " MPH";
     cardText3.textContent = "Date: " + day3 + " | Temp: " + data.daily[2].temp.day + "F | Humidity: " + data.daily[2].humidity + "% | UV Index: " + data.daily[2].uvi + " | Wind Speed: " + data.daily[2].wind_speed + " MPH";
     cardText4.textContent = "Date: " + day4 + " | Temp: " + data.daily[3].temp.day + "F | Humidity: " + data.daily[3].humidity + "% | UV Index: " + data.daily[3].uvi + " | Wind Speed: " + data.daily[3].wind_speed + " MPH";
     cardText5.textContent = "Date: " + day5 + " | Temp: " + data.daily[4].temp.day + "F | Humidity: " + data.daily[4].humidity + "% | UV Index: " + data.daily[4].uvi + " | Wind Speed: " + data.daily[4].wind_speed + " MPH";
 
+    futureForecastCard.append(futureForecastHeader);
     futureForecastCard.append(cardText1);
     futureForecastCard.append(cardText2);
     futureForecastCard.append(cardText3);
@@ -178,6 +196,3 @@ var searchAgain = function (event){
 
 // when you click search, the magic starts
 searchBtn.addEventListener("click", getCoordinates);
-
-// For current, data.daily[0].temp.day
-// make card that accepts 5 day, and loops through and renders each one
