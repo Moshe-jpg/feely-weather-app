@@ -53,7 +53,7 @@ var createForecast = function (data, city){
     forecastBody.setAttribute("class", "col-lg-6 col-12");
     // create the card
     var forecastCard = document.createElement("div");
-    forecastCard.setAttribute( "class", "card text-light bg-info d-flex align-items-center");
+    forecastCard.setAttribute( "class", "card text-light bg-info d-flex align-items-center card-box");
     // create the header
     var forecastHead = document.createElement("div");
     forecastHead.setAttribute("class", "card-header text-dark bg-warning w-100 font-weight-bold");

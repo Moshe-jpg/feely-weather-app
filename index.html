@@ -17,10 +17,10 @@
     <link rel="stylesheet" href="style.css" />
     <title>Feely Weather App</title>
   </head>
-  <body>
+  <body id="content-body">
 
     <!-- navbar section -->
-    <nav class="navbar sticky-top navbar-primary bg-dark pr-5 pl-5">
+    <nav class="navbar sticky-top navbar-primary bg-dark pr-5 pl-5 navbar-pad">
         <a class="navbar-brand" href="#!"><h1 class="text-success">Feely Weather App</h1></a>
         <div class="btn-group">
             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search Again</button>
@@ -28,14 +28,14 @@
             </div>
         </div>          
     </nav>
-
+    
     <!-- main content -->
     <main>
-      <div class="container-fluid w-100 h-100 bg-dark text-center main-container">
+      <div class="container-fluid w-100 h-100 text-center main-container">
         <div class="row mb-2 pt-2">
           <div class="col-12">
             <div class="search d-flex flex-column justify-content-center align-items-center mb-3">
-             <input class="form-control form-control-sm w-25 text-dark" id="text-input" rows="1" placeholder="Search A City"></input>
+             <input class="form-control form-control-sm text-dark inp-form" id="text-input" rows="1" placeholder="Search A City"></input>
              <button class="btn btn-lg text-center text-light bg-success mt-3" id="search-btn">Search</button>
             </div>
           </div>
