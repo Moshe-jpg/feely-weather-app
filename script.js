@@ -1,9 +1,11 @@
 var apiKey = "82637d580741789f3ab243d8e053d1da";
 var searchBtn = document.getElementById("search-btn");
+var dropdownMenu = document.getElementById("dropdown-menu");
 var row = document.getElementById("row");
 var textInput = document.getElementById("text-input");
 var savedSearches = JSON.parse(localStorage.getItem("savedSearches"));
 var weatherApiRootUrl = 'https://api.openweathermap.org';
+
 
 var getCoordinates = function (){
     var city = textInput.value;
@@ -83,14 +85,10 @@ var createForecast = function (data, city){
     } if (data.current.uvi > 6){
         forecastFooter.style.color = "#e21313";
     }
+    // give the footer the rest of its classes
     forecastFooter.setAttribute("class", "card-footer w-100 font-weight-bold");
     forecastFooter.textContent = "UV Index: " + data.current.uvi + " | Current Wind Speed: " + data.current.wind_speed + " MPH";
-
-    // 1st grab uvi index  (add colour if less then 3), for current, data.daily[0].temp.day
-    // make card that accepts 5 day, and loops through and renders each one
-    // http://bit.ly/students-eval
  
-
     // append all the created elements into the card
     forecastCard.append(weatherIcon);
     forecastCard.append(forecastHead);
@@ -100,10 +98,28 @@ var createForecast = function (data, city){
     forecastBody.appendChild(forecastCard);
     // append the column to the row
     row.appendChild(forecastBody);
-
-
     // save the search every time the forecast is created
     saveSearch();
+    addToSearch();
 };
 
+
+
+var addToSearch = function (){
+    var savedSearches = JSON.parse(localStorage.getItem("savedSearches"));
+    for (i = 0; i < savedSearches.length; i++){
+        var savedElement = document.createElement("div");
+        savedElement.setAttribute("class", "dropdown-item");
+        savedElement.setAttribute("type", "button");
+        savedElement.textContent = savedSearches[i];
+        dropdownMenu.appendChild(savedElement);
+    }
+    
+}
+
+
+// when you click search, the magic starts
 searchBtn.addEventListener("click", getCoordinates);
+
+// For current, data.daily[0].temp.day
+// make card that accepts 5 day, and loops through and renders each one
