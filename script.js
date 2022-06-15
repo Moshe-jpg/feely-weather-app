@@ -51,10 +51,11 @@ var createForecast = function (data, city){
     forecastBody.setAttribute("class", "col-lg-6 col-12");
     // create the card
     var forecastCard = document.createElement("div");
-    forecastCard.setAttribute( "class", "card text-light bg-info text-center");
+    forecastCard.setAttribute( "class", "card text-light bg-info d-flex align-items-center");
     // create the header
     var forecastHead = document.createElement("div");
     forecastHead.setAttribute("class", "card-header text-dark bg-warning w-100 font-weight-bold");
+    
     // put the current date inside the text
     var currentDate = moment.unix(data.current.dt).format('dddd, MMMM Do, YYYY h:mm:ss A');
     // get the icons
@@ -65,17 +66,30 @@ var createForecast = function (data, city){
     var currentInput = textInput.value;
     forecastHead.textContent = "City: " + currentInput + " --- Today is " + currentDate;
     var weatherIcon = document.createElement("img");
-    weatherIcon.setAttribute("class", "weather-img")
+    weatherIcon.setAttribute("class", "weather-img");
     weatherIcon.setAttribute("src", iconUrl);
     weatherIcon.setAttribute("alt", iconDescription);
     // create the main content area
     var forecastMain = document.createElement("div");
     forecastMain.setAttribute("class", "card-body w-100 font-weight-bold");
-    forecastMain.textContent = "Current --- Temp: " + data.current.temp + " F -- Humidity: " + data.current.humidity + "" + data.current.wind_speed + " MPH -- " ;
+    forecastMain.textContent = "Current Temp: " + data.current.temp + "F | Current Humidity: " + data.current.humidity + "%";
     // create the footer area
     var forecastFooter = document.createElement("div");
+    // give the footer a special colour depending on UV index favourability
+    if (data.current.uvi <= 3){
+        forecastFooter.style.color = "#ffffff";
+    } if (data.current.uvi > 3 && data.current.uvi <= 6){
+        forecastFooter.style.color = "#a8d112";
+    } if (data.current.uvi > 6){
+        forecastFooter.style.color = "#e21313";
+    }
     forecastFooter.setAttribute("class", "card-footer w-100 font-weight-bold");
-    forecastFooter.textContent = "5 Day --- ";
+    forecastFooter.textContent = "UV Index: " + data.current.uvi + " | Current Wind Speed: " + data.current.wind_speed + " MPH";
+
+    // 1st grab uvi index  (add colour if less then 3), for current, data.daily[0].temp.day
+    // make card that accepts 5 day, and loops through and renders each one
+    // http://bit.ly/students-eval
+ 
 
     // append all the created elements into the card
     forecastCard.append(weatherIcon);
