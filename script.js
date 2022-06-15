@@ -164,9 +164,14 @@ var addToSearch = function (currentInput){
 };
 
 var searchAgain = function (event){
-    console.log(event.target.value);
-    createForecast();
-    
+    var city = event.target.id
+    var apiUrl = weatherApiRootUrl + "/geo/1.0/direct?q=" + city + "&limit=5&appid=" + apiKey;
+    fetch (apiUrl).then(function (results){
+        return results.json();
+    })
+    .then(function (data){
+        getWeather(data[0]);
+    })
 };
 
 
