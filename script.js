@@ -3,20 +3,38 @@ var searchBtn = document.getElementById("search-btn");
 var row = document.getElementById("row");
 var textInput = document.getElementById("text-input");
 var savedSearches = JSON.parse(localStorage.getItem("savedSearches"));
+var weatherApiRootUrl = 'https://api.openweathermap.org';
+
+var getCoordinates = function (){
+    var city = textInput.value;
+    var apiUrl = weatherApiRootUrl + "/geo/1.0/direct?q=" + city + "&limit=5&appid=" + apiKey;
+    fetch (apiUrl).then(function (results){
+        return results.json();
+    })
+    .then(function (data){
+        console.log(data);
+        getWeather(data[0]);
+    })
+};
+
+var getWeather = function (data){
+    var lat = data.lat;
+    var lon = data.lon;
+    var city = data.name;
+    var apiUrl = weatherApiRootUrl + "/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude=minutely,hourly&appid=" + apiKey;
+    fetch (apiUrl).then(function (results){
+        return results.json();
+    })
+    .then(function (data){
+        console.log(data);
+        createForecast(data, city);
+    })
+}
 
 // if no savedSearches exist, create an array
 if (!savedSearches){
     savedSearches = [];
 };
-
-// for when it's sunny use bi-sun for the i and bg-success for the card-header
-var sunIcon = "bi-sun";
-// for when it's raining use bi-cloud-rain for the i and bg-warning for the card-header
-var rainIcon = "bi-cloud-rain";
-// for when it's snowing use bi-snow for the i and bg-light for the card-header
-var snowIcon = "bi-snow";
-// for when it's windy use bi-wind for the i and bg-danger for the card-header
-var windIcon = "bi-wind";
 
 
 // a function to save searches to localStorage
@@ -27,36 +45,40 @@ var saveSearch = function (){
 };
 
 // create a forecast whenever the button is clicked
-var createForecast = function (){
+var createForecast = function (data, city){
     // create the column
     var forecastBody = document.createElement("div");
     forecastBody.setAttribute("class", "col-lg-6 col-12");
     // create the card
     var forecastCard = document.createElement("div");
     forecastCard.setAttribute( "class", "card text-light bg-info text-center");
-    // create the icon
-    var forecastImg = document.createElement("i");
-    forecastImg.setAttribute("class", "bi-cloud-rain card-img-top");
-    forecastImg.ariaHidden ="true";
     // create the header
     var forecastHead = document.createElement("div");
     forecastHead.setAttribute("class", "card-header text-dark bg-warning w-100 font-weight-bold");
     // put the current date inside the text
-    var currentDate = moment().format('MM/DD/YYYY');
+    var currentDate = moment.unix(data.current.dt).format('dddd, MMMM Do, YYYY h:mm:ss A');
+    // get the icons
+    var iconUrl = `https://openweathermap.org/img/w/${data.current.weather[0].icon}.png`;
+    var iconDescription = data.current.weather[0].description;
+
     // put the current input value inside the text
     var currentInput = textInput.value;
     forecastHead.textContent = "City: " + currentInput + " --- Today is " + currentDate;
+    var weatherIcon = document.createElement("img");
+    weatherIcon.setAttribute("class", "weather-img")
+    weatherIcon.setAttribute("src", iconUrl);
+    weatherIcon.setAttribute("alt", iconDescription);
     // create the main content area
     var forecastMain = document.createElement("div");
     forecastMain.setAttribute("class", "card-body w-100 font-weight-bold");
-    forecastMain.textContent = "Main";
+    forecastMain.textContent = "Current --- Temp: " + data.current.temp + " F -- Humidity: " + data.current.humidity + "" + data.current.wind_speed + " MPH -- " ;
     // create the footer area
     var forecastFooter = document.createElement("div");
     forecastFooter.setAttribute("class", "card-footer w-100 font-weight-bold");
-    forecastFooter.textContent = "Footer";
+    forecastFooter.textContent = "5 Day --- ";
 
     // append all the created elements into the card
-    forecastCard.append(forecastImg)
+    forecastCard.append(weatherIcon);
     forecastCard.append(forecastHead);
     forecastCard.append(forecastMain);
     forecastCard.append(forecastFooter);
@@ -70,4 +92,4 @@ var createForecast = function (){
     saveSearch();
 };
 
-searchBtn.addEventListener("click", createForecast);
+searchBtn.addEventListener("click", getCoordinates);
