@@ -100,21 +100,19 @@ var createForecast = function (data, city){
     row.appendChild(forecastBody);
     // save the search every time the forecast is created
     saveSearch();
-    addToSearch();
+    addToSearch(currentInput);
 };
 
 
-
-var addToSearch = function (){
-    // var savedSearches = JSON.parse(localStorage.getItem("savedSearches"));
-    for (i = 0; i < savedSearches.length; i++){
-        var savedElement = document.createElement("div");
-        savedElement.setAttribute("class", "dropdown-item");
-        savedElement.setAttribute("type", "button");
-        savedElement.setAttribute("id", savedSearches[i]);
-        savedElement.textContent = savedSearches[i];
-        dropdownMenu.appendChild(savedElement);
-    }
+// whenever a search is made, the city can be searched again
+var addToSearch = function (currentInput){
+    var savedElement = document.createElement("div");
+    savedElement.setAttribute("class", "dropdown-item");
+    savedElement.setAttribute("type", "button");
+    savedElement.setAttribute("id", currentInput);
+    savedElement.textContent = currentInput;
+    dropdownMenu.appendChild(savedElement);
+    // dropdownMenu.addEventListener("click", )
 };
 
 
