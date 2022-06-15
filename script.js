@@ -19,7 +19,6 @@ var snowIcon = "bi-snow";
 var windIcon = "bi-wind";
 
 
-
 // a function to save searches to localStorage
 var saveSearch = function (){
     var textInputValue = textInput.value;
@@ -27,14 +26,14 @@ var saveSearch = function (){
     localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
 };
 
-// the function which will create a forecast
+// create a forecast whenever the button is clicked
 var createForecast = function (){
     // create the column
     var forecastBody = document.createElement("div");
-    forecastBody.setAttribute("class", "col-12");
+    forecastBody.setAttribute("class", "col-lg-6 col-12");
     // create the card
     var forecastCard = document.createElement("div");
-    forecastCard.setAttribute( "class", "card text-light bg-info d-flex justify-content-center align-items-center");
+    forecastCard.setAttribute( "class", "card text-light bg-info text-center");
     // create the icon
     var forecastImg = document.createElement("i");
     forecastImg.setAttribute("class", "bi-cloud-rain card-img-top");
@@ -42,7 +41,11 @@ var createForecast = function (){
     // create the header
     var forecastHead = document.createElement("div");
     forecastHead.setAttribute("class", "card-header text-dark bg-warning w-100 font-weight-bold");
-    forecastHead.textContent = "City: ";
+    // put the current date inside the text
+    var currentDate = moment().format('MM/DD/YYYY');
+    // put the current input value inside the text
+    var currentInput = textInput.value;
+    forecastHead.textContent = "City: " + currentInput + " --- Today is " + currentDate;
     // create the main content area
     var forecastMain = document.createElement("div");
     forecastMain.setAttribute("class", "card-body w-100 font-weight-bold");
@@ -61,6 +64,8 @@ var createForecast = function (){
     forecastBody.appendChild(forecastCard);
     // append the column to the row
     row.appendChild(forecastBody);
+
+
     // save the search every time the forecast is created
     saveSearch();
 };
