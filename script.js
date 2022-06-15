@@ -14,7 +14,6 @@ var getCoordinates = function (){
         return results.json();
     })
     .then(function (data){
-        console.log(data);
         getWeather(data[0]);
     })
 };
@@ -30,6 +29,7 @@ var getWeather = function (data){
     .then(function (data){
         console.log(data);
         createForecast(data, city);
+        createFutureForecast(data, city);
     })
 }
 
@@ -47,10 +47,10 @@ var saveSearch = function (){
 };
 
 // create a forecast whenever the button is clicked
-var createForecast = function (data, city){
+var createForecast = function (data, event){
     // create the column
     var forecastBody = document.createElement("div");
-    forecastBody.setAttribute("class", "col-lg-6 col-12");
+    forecastBody.setAttribute("class", "col-md-4 col-12");
     // create the card
     var forecastCard = document.createElement("div");
     forecastCard.setAttribute( "class", "card text-light bg-info d-flex align-items-center card-box");
@@ -59,14 +59,14 @@ var createForecast = function (data, city){
     forecastHead.setAttribute("class", "card-header text-dark bg-warning w-100 font-weight-bold");
     
     // put the current date inside the text
-    var currentDate = moment.unix(data.current.dt).format('dddd, MMMM Do, YYYY h:mm A');
+    var currentDate = moment.unix(data.current.dt).format('dddd, MMMM Do, YYYY | h:mm A');
     // get the icons
     var iconUrl = `https://openweathermap.org/img/w/${data.current.weather[0].icon}.png`;
     var iconDescription = data.current.weather[0].description;
 
     // put the current input value inside the text
     var currentInput = textInput.value;
-    forecastHead.textContent = "City: " + currentInput + " | Today is " + currentDate;
+    
     var weatherIcon = document.createElement("img");
     weatherIcon.setAttribute("class", "weather-img");
     weatherIcon.setAttribute("src", iconUrl);
@@ -74,7 +74,7 @@ var createForecast = function (data, city){
     // create the main content area
     var forecastMain = document.createElement("div");
     forecastMain.setAttribute("class", "card-body w-100 font-weight-bold");
-    forecastMain.textContent = "Current Temp: " + data.current.temp + "F | Current Humidity: " + data.current.humidity + "%";
+    
     // create the footer area
     var forecastFooter = document.createElement("div");
     // give the footer a special colour depending on UV index favourability
@@ -87,6 +87,10 @@ var createForecast = function (data, city){
     }
     // give the footer the rest of its classes
     forecastFooter.setAttribute("class", "card-footer w-100 font-weight-bold");
+
+    // the text content for each forecast will be
+    forecastHead.textContent = "City: " + currentInput + " | " + currentDate;
+    forecastMain.textContent = "Current Temp: " + data.current.temp + "F | Current Humidity: " + data.current.humidity + "%";
     forecastFooter.textContent = "UV Index: " + data.current.uvi + " | Current Wind Speed: " + data.current.wind_speed + " MPH";
  
     // append all the created elements into the card
@@ -98,9 +102,48 @@ var createForecast = function (data, city){
     forecastBody.appendChild(forecastCard);
     // append the column to the row
     row.appendChild(forecastBody);
+
     // save the search every time the forecast is created
     saveSearch();
-    addToSearch(currentInput);
+    addToSearch(currentInput, event);
+};
+
+var createFutureForecast = function (data){
+    
+    var futureForecastBody = document.createElement("div");
+    futureForecastBody.setAttribute("class", "col-md-8 col-12");
+    var futureForecastCard = document.createElement("div");
+    futureForecastCard.setAttribute("class", "card text-light bg-info d-flex align-items-center card-box");
+    // the new p tags will container the future conditions in each one
+    var cardText1 = document.createElement("p");
+    cardText1.setAttribute("class", "card-text w-100 mt-3 mb-3 pr-5 pl-5");
+    var cardText2 = document.createElement("p");
+    cardText2.setAttribute("class", "card-text w-100 mt-3 mb-3 pr-5 pl-5");
+    var cardText3 = document.createElement("p");
+    cardText3.setAttribute("class", "card-text w-100 mt-3 mb-3 pr-5 pl-5");
+    var cardText4 = document.createElement("p");
+    cardText4.setAttribute("class", "card-text w-100 mt-3 mb-3 pr-5 pl-5");
+    var cardText5 = document.createElement("p");
+    cardText5.setAttribute("class", "card-text w-100 mt-3 mb-3 pr-5 pl-5");
+
+    // put the future date inside the text
+    var futureDate = moment.unix(data.current.dt).format('dddd, MMMM Do, YYYY | h:mm A');
+
+    // the text content for each card
+    cardText1.textContent = "Date:" +  + " | Temp: " + data.daily[0].temp.day + "F | Humidity: " + data.daily[0].humidity + "% | UV Index: " + data.daily[0].uvi + " | Wind Speed: " + data.daily[0].wind_speed + " MPH";
+    cardText2.textContent = "Date:" +  + " | Temp: " + data.daily[1].temp.day + "F | Humidity: " + data.daily[1].humidity + "% | UV Index: " + data.daily[1].uvi + " | Wind Speed: " + data.daily[1].wind_speed + " MPH";
+    cardText3.textContent = "Date:" +  + " | Temp: " + data.daily[2].temp.day + "F | Humidity: " + data.daily[2].humidity + "% | UV Index: " + data.daily[2].uvi + " | Wind Speed: " + data.daily[2].wind_speed + " MPH";
+    cardText4.textContent = "Date:" +  + " | Temp: " + data.daily[3].temp.day + "F | Humidity: " + data.daily[3].humidity + "% | UV Index: " + data.daily[3].uvi + " | Wind Speed: " + data.daily[3].wind_speed + " MPH";
+    cardText5.textContent = "Date:" +  + " | Temp: " + data.daily[4].temp.day + "F | Humidity: " + data.daily[4].humidity + "% | UV Index: " + data.daily[4].uvi + " | Wind Speed: " + data.daily[4].wind_speed + " MPH";
+
+    futureForecastCard.append(cardText1);
+    futureForecastCard.append(cardText2);
+    futureForecastCard.append(cardText3);
+    futureForecastCard.append(cardText4);
+    futureForecastCard.append(cardText5);
+    futureForecastBody.appendChild(futureForecastCard);
+    row.appendChild(futureForecastBody);
+
 };
 
 
@@ -112,7 +155,13 @@ var addToSearch = function (currentInput){
     savedElement.setAttribute("id", currentInput);
     savedElement.textContent = currentInput;
     dropdownMenu.appendChild(savedElement);
-    // dropdownMenu.addEventListener("click", )
+    dropdownMenu.addEventListener("click", searchAgain);
+};
+
+var searchAgain = function (event){
+    console.log(event.target.innerHTML);
+    createForecast();
+    
 };
 
 
