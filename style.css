@@ -3,7 +3,7 @@
 }
 
 #content-body {
-    background: linear-gradient(#9EB23B, #C7D36F, #FCF9C6, #E0DECA, #C7D36F, #9EB23B);
+    background: linear-gradient(#FFCE45, #D4AC2B, #B05E27, #7E370C);
 }
 
 ::placeholder {
@@ -43,7 +43,7 @@ button, .inp-form, .card-box {
 }
 
 .navbar-pad {
-    padding-bottom: 3rem;
+    padding: 1.5rem 0;
 }
 
 .inp-form {

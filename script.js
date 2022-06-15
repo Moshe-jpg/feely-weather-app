@@ -66,7 +66,7 @@ var createForecast = function (data, city){
 
     // put the current input value inside the text
     var currentInput = textInput.value;
-    forecastHead.textContent = "City: " + currentInput + " --- Today is " + currentDate;
+    forecastHead.textContent = "City: " + currentInput + " | Today is " + currentDate;
     var weatherIcon = document.createElement("img");
     weatherIcon.setAttribute("class", "weather-img");
     weatherIcon.setAttribute("src", iconUrl);
