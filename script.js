@@ -59,7 +59,7 @@ var createForecast = function (data, city){
     forecastHead.setAttribute("class", "card-header text-dark bg-warning w-100 font-weight-bold");
     
     // put the current date inside the text
-    var currentDate = moment.unix(data.current.dt).format('dddd, MMMM Do, YYYY h:mm:ss A');
+    var currentDate = moment.unix(data.current.dt).format('dddd, MMMM Do, YYYY h:mm A');
     // get the icons
     var iconUrl = `https://openweathermap.org/img/w/${data.current.weather[0].icon}.png`;
     var iconDescription = data.current.weather[0].description;
@@ -106,16 +106,17 @@ var createForecast = function (data, city){
 
 
 var addToSearch = function (){
-    var savedSearches = JSON.parse(localStorage.getItem("savedSearches"));
+    // var savedSearches = JSON.parse(localStorage.getItem("savedSearches"));
     for (i = 0; i < savedSearches.length; i++){
         var savedElement = document.createElement("div");
         savedElement.setAttribute("class", "dropdown-item");
         savedElement.setAttribute("type", "button");
+        savedElement.setAttribute("id", savedSearches[i]);
         savedElement.textContent = savedSearches[i];
         dropdownMenu.appendChild(savedElement);
     }
-    
-}
+};
+
 
 
 // when you click search, the magic starts
