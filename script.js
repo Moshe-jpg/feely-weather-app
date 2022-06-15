@@ -114,6 +114,7 @@ var createFutureForecast = function (data){
     futureForecastBody.setAttribute("class", "col-md-8 col-12");
     var futureForecastCard = document.createElement("div");
     futureForecastCard.setAttribute("class", "card text-light bg-info d-flex align-items-center card-box");
+
     // the new p tags will container the future conditions in each one
     var cardText1 = document.createElement("p");
     cardText1.setAttribute("class", "card-text w-100 mt-3 mb-3 pr-5 pl-5");
@@ -127,14 +128,18 @@ var createFutureForecast = function (data){
     cardText5.setAttribute("class", "card-text w-100 mt-3 mb-3 pr-5 pl-5");
 
     // put the future date inside the text
-    var futureDate = moment.unix(data.current.dt).format('dddd, MMMM Do, YYYY | h:mm A');
+    var day1 = moment.unix(data.current.dt).add(1, 'days').format('dddd, Do');
+    var day2 = moment.unix(data.current.dt).add(2, 'days').format('dddd, Do');
+    var day3 = moment.unix(data.current.dt).add(3, 'days').format('dddd, Do');
+    var day4 = moment.unix(data.current.dt).add(4, 'days').format('dddd, Do');
+    var day5 = moment.unix(data.current.dt).add(5, 'days').format('dddd, Do');
 
     // the text content for each card
-    cardText1.textContent = "Date:" +  + " | Temp: " + data.daily[0].temp.day + "F | Humidity: " + data.daily[0].humidity + "% | UV Index: " + data.daily[0].uvi + " | Wind Speed: " + data.daily[0].wind_speed + " MPH";
-    cardText2.textContent = "Date:" +  + " | Temp: " + data.daily[1].temp.day + "F | Humidity: " + data.daily[1].humidity + "% | UV Index: " + data.daily[1].uvi + " | Wind Speed: " + data.daily[1].wind_speed + " MPH";
-    cardText3.textContent = "Date:" +  + " | Temp: " + data.daily[2].temp.day + "F | Humidity: " + data.daily[2].humidity + "% | UV Index: " + data.daily[2].uvi + " | Wind Speed: " + data.daily[2].wind_speed + " MPH";
-    cardText4.textContent = "Date:" +  + " | Temp: " + data.daily[3].temp.day + "F | Humidity: " + data.daily[3].humidity + "% | UV Index: " + data.daily[3].uvi + " | Wind Speed: " + data.daily[3].wind_speed + " MPH";
-    cardText5.textContent = "Date:" +  + " | Temp: " + data.daily[4].temp.day + "F | Humidity: " + data.daily[4].humidity + "% | UV Index: " + data.daily[4].uvi + " | Wind Speed: " + data.daily[4].wind_speed + " MPH";
+    cardText1.textContent = "Date: " + day1 + " | Temp: " + data.daily[0].temp.day + "F | Humidity: " + data.daily[0].humidity + "% | UV Index: " + data.daily[0].uvi + " | Wind Speed: " + data.daily[0].wind_speed + " MPH";
+    cardText2.textContent = "Date: " + day2 + " | Temp: " + data.daily[1].temp.day + "F | Humidity: " + data.daily[1].humidity + "% | UV Index: " + data.daily[1].uvi + " | Wind Speed: " + data.daily[1].wind_speed + " MPH";
+    cardText3.textContent = "Date: " + day3 + " | Temp: " + data.daily[2].temp.day + "F | Humidity: " + data.daily[2].humidity + "% | UV Index: " + data.daily[2].uvi + " | Wind Speed: " + data.daily[2].wind_speed + " MPH";
+    cardText4.textContent = "Date: " + day4 + " | Temp: " + data.daily[3].temp.day + "F | Humidity: " + data.daily[3].humidity + "% | UV Index: " + data.daily[3].uvi + " | Wind Speed: " + data.daily[3].wind_speed + " MPH";
+    cardText5.textContent = "Date: " + day5 + " | Temp: " + data.daily[4].temp.day + "F | Humidity: " + data.daily[4].humidity + "% | UV Index: " + data.daily[4].uvi + " | Wind Speed: " + data.daily[4].wind_speed + " MPH";
 
     futureForecastCard.append(cardText1);
     futureForecastCard.append(cardText2);
