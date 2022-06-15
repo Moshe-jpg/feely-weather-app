@@ -164,7 +164,7 @@ var addToSearch = function (currentInput){
 };
 
 var searchAgain = function (event){
-    console.log(event.target.innerHTML);
+    console.log(event.target.value);
     createForecast();
     
 };
