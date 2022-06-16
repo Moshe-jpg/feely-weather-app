@@ -5,6 +5,7 @@ var row = document.getElementById("row");
 var textInput = document.getElementById("text-input");
 var savedSearches = JSON.parse(localStorage.getItem("savedSearches"));
 var weatherApiRootUrl = 'https://api.openweathermap.org';
+// http://openweathermap.org/img/wn/10d@2x.png
 
 
 var getCoordinates = function (){
@@ -22,7 +23,7 @@ var getWeather = function (data){
     var lat = data.lat;
     var lon = data.lon;
     var city = data.name;
-    var apiUrl = weatherApiRootUrl + "/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude=minutely,hourly&appid=" + apiKey;
+    var apiUrl = weatherApiRootUrl + "/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=metric&exclude=minutely,hourly&appid=" + apiKey;
     fetch (apiUrl).then(function (results){
         return results.json();
     })
@@ -59,7 +60,7 @@ var createForecast = function (data, event){
 
     // create the header
     var forecastHead = document.createElement("div");
-    forecastHead.setAttribute("class", "card-header text-dark bg-warning w-100 font-weight-bold");
+    forecastHead.setAttribute("class", "card-header text-dark bg-warning w-100");
     
     // put the current date inside the text
     var currentDate = moment.unix(data.current.dt).format('dddd, MMMM Do, YYYY | h:mm A');
@@ -78,7 +79,7 @@ var createForecast = function (data, event){
 
     // create the main content area
     var forecastMain = document.createElement("div");
-    forecastMain.setAttribute("class", "card-body w-100 font-weight-bold");
+    forecastMain.setAttribute("class", "card-body w-100");
     
     // create the footer area
     var forecastFooter = document.createElement("div");
@@ -92,12 +93,12 @@ var createForecast = function (data, event){
         forecastFooter.style.color = "#e21313";
     }
     // give the footer the rest of its classes
-    forecastFooter.setAttribute("class", "card-footer w-100 font-weight-bold");
+    forecastFooter.setAttribute("class", "card-footer w-100");
 
     // the text content for each forecast will be
     forecastHead.textContent = "City: " + currentInput + " | " + currentDate;
-    forecastMain.textContent = "Current Temp: " + data.current.temp + "F | Current Humidity: " + data.current.humidity + "%";
-    forecastFooter.textContent = "UV Index: " + data.current.uvi + " | Current Wind Speed: " + data.current.wind_speed + " MPH";
+    forecastMain.textContent = "Current Temp: " + data.current.temp + "C | Current Humidity: " + data.current.humidity + "%";
+    forecastFooter.textContent = "UV Index: " + data.current.uvi + " | Current Wind Speed: " + data.current.wind_speed + " km/h";
  
     // append all the created elements into the card
     forecastCard.append(weatherIcon);
@@ -148,25 +149,80 @@ var createFutureForecast = function (data){
     var day4 = moment.unix(data.current.dt).add(4, 'days').format('dddd, Do');
     var day5 = moment.unix(data.current.dt).add(5, 'days').format('dddd, Do');
 
+    // data.daily[0].weather[0].icon  data.daily[0].weather[0].main == "Thunderstorm" 
+    
+
     // text content for card header
     futureForecastHeader.textContent = "5 Day Forecast";
+    
+    // I know this next piece of code is very badly written but I was running out of time and had to make it work.......
+
+
+
+    // conditions rain
+    if (data.daily[0].weather[0].main == "Rain" || data.daily[0].weather[0].main == "Thunderstorm" || data.daily[0].weather[0].main == "Drizzle"){
+        cardText1.classList.add("bi-cloud-rain-heavy");
+    } if (data.daily[1].weather[0].main == "Rain" || data.daily[1].weather[0].main == "Thunderstorm" || data.daily[1].weather[0].main == "Drizzle") {
+        cardText2.classList.add("bi-cloud-rain-heavy");
+    } if (data.daily[2].weather[0].main == "Rain" || data.daily[2].weather[0].main == "Thunderstorm" || data.daily[2].weather[0].main == "Drizzle") {
+        cardText3.classList.add("bi-cloud-rain-heavy");
+    } if (data.daily[3].weather[0].main == "Rain" || data.daily[3].weather[0].main == "Thunderstorm" || data.daily[3].weather[0].main == "Drizzle") {
+        cardText4.classList.add("bi-cloud-rain-heavy");
+    } if (data.daily[4].weather[0].main == "Rain" || data.daily[4].weather[0].main == "Thunderstorm" || data.daily[4].weather[0].main == "Drizzle") {
+        cardText5.classList.add("bi-cloud-rain-heavy");
+    }
+
+    // conditions clear
+    if (data.daily[0].weather[0].main == "Clear"){
+        cardText1.classList.add("bi-brightness-high");
+    } if (data.daily[1].weather[0].main == "Clear"){
+        cardText2.classList.add("bi-brightness-high");
+    } if (data.daily[2].weather[0].main == "Clear"){
+        cardText3.classList.add("bi-brightness-high");
+    } if (data.daily[3].weather[0].main == "Clear"){
+        cardText4.classList.add("bi-brightness-high");
+    } if (data.daily[4].weather[0].main == "Clear"){
+        cardText5.classList.add("bi-brightness-high");
+    } 
+
+    // conditions snow
+    if (data.daily[0].weather[0].main == "Snow"){
+        cardText1.classList.add("bi bi-snow3");
+    } if (data.daily[1].weather[0].main == "Snow"){
+        cardText2.classList.add("bi bi-snow3");
+    } if (data.daily[2].weather[0].main == "Snow"){
+        cardText3.classList.add("bi bi-snow3");
+    } if (data.daily[3].weather[0].main == "Snow"){
+        cardText4.classList.add("bi bi-snow3");
+    } if (data.daily[4].weather[0].main == "Snow"){
+        cardText5.classList.add("bi bi-snow3");
+    } 
+
+    // conditions clouds
+    if (data.daily[0].weather[0].main == "Clouds"){
+        cardText1.classList.add("bi-clouds");
+    } 
+    if (data.daily[1].weather[0].main == "Clouds"){
+        cardText2.classList.add("bi-clouds");
+    } 
+    if (data.daily[2].weather[0].main == "Clouds"){
+        cardText3.classList.add("bi-clouds");
+    } 
+    if (data.daily[3].weather[0].main == "Clouds"){
+        cardText4.classList.add("bi-clouds");
+    } 
+    if (data.daily[4].weather[0].main == "Clouds"){
+        cardText5.classList.add("bi-clouds");
+    }
 
     // text content for each card
-    cardText1.textContent = "Date: " + day1 + " | Temp: " + data.daily[0].temp.day + "F | Humidity: " + data.daily[0].humidity + "% | UV Index: " + data.daily[0].uvi + " | Wind Speed: " + data.daily[0].wind_speed + " MPH";
-    cardText2.textContent = "Date: " + day2 + " | Temp: " + data.daily[1].temp.day + "F | Humidity: " + data.daily[1].humidity + "% | UV Index: " + data.daily[1].uvi + " | Wind Speed: " + data.daily[1].wind_speed + " MPH";
-    cardText3.textContent = "Date: " + day3 + " | Temp: " + data.daily[2].temp.day + "F | Humidity: " + data.daily[2].humidity + "% | UV Index: " + data.daily[2].uvi + " | Wind Speed: " + data.daily[2].wind_speed + " MPH";
-    cardText4.textContent = "Date: " + day4 + " | Temp: " + data.daily[3].temp.day + "F | Humidity: " + data.daily[3].humidity + "% | UV Index: " + data.daily[3].uvi + " | Wind Speed: " + data.daily[3].wind_speed + " MPH";
-    cardText5.textContent = "Date: " + day5 + " | Temp: " + data.daily[4].temp.day + "F | Humidity: " + data.daily[4].humidity + "% | UV Index: " + data.daily[4].uvi + " | Wind Speed: " + data.daily[4].wind_speed + " MPH";
+    cardText1.textContent = " Date: " + day1 + " | Temp: " + data.daily[0].temp.day + "C | Humidity: " + data.daily[0].humidity + "% | UV Index: " + data.daily[0].uvi + " | Wind Speed: " + data.daily[0].wind_speed + " km/h";
+    cardText2.textContent = " Date: " + day2 + " | Temp: " + data.daily[1].temp.day + "C | Humidity: " + data.daily[1].humidity + "% | UV Index: " + data.daily[1].uvi + " | Wind Speed: " + data.daily[1].wind_speed + " km/h";
+    cardText3.textContent = " Date: " + day3 + " | Temp: " + data.daily[2].temp.day + "C | Humidity: " + data.daily[2].humidity + "% | UV Index: " + data.daily[2].uvi + " | Wind Speed: " + data.daily[2].wind_speed + " km/h";
+    cardText4.textContent = " Date: " + day4 + " | Temp: " + data.daily[3].temp.day + "C | Humidity: " + data.daily[3].humidity + "% | UV Index: " + data.daily[3].uvi + " | Wind Speed: " + data.daily[3].wind_speed + " km/h";
+    cardText5.textContent = " Date: " + day5 + " | Temp: " + data.daily[4].temp.day + "C | Humidity: " + data.daily[4].humidity + "% | UV Index: " + data.daily[4].uvi + " | Wind Speed: " + data.daily[4].wind_speed + " km/h";
 
-    futureForecastCard.append(futureForecastHeader);
-    futureForecastCard.append(cardText1);
-    futureForecastCard.append(cardText2);
-    futureForecastCard.append(cardText3);
-    futureForecastCard.append(cardText4);
-    futureForecastCard.append(cardText5);
-    futureForecastBody.appendChild(futureForecastCard);
-    row.appendChild(futureForecastBody);
-
+    futureForecastCard.append(futureForecastHeader), futureForecastCard.append(cardText1), futureForecastCard.append(cardText2), futureForecastCard.append(cardText3), futureForecastCard.append(cardText4), futureForecastCard.append(cardText5), futureForecastBody.appendChild(futureForecastCard), row.appendChild(futureForecastBody);
 };
 
 
@@ -191,8 +247,6 @@ var searchAgain = function (event){
         getWeather(data[0]);
     })
 };
-
-
 
 // when you click search, the magic starts
 searchBtn.addEventListener("click", getCoordinates);
